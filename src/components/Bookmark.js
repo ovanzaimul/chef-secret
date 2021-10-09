@@ -17,10 +17,10 @@ const Bookmark = () => {
         <Badge badgeContent={4} color='error'>
           <BookmarkIcon color='primary.light' />
         </Badge>
+        <Typography color='secondary.main' sx={{ fontWeight: 500, marginLeft: '8px' }}>
+          Bookmarks
+        </Typography>
       </IconButton>
-      <Typography color='secondary.main' sx={{ fontWeight: 500 }}>
-        Bookmarks
-      </Typography>
     </Box>
   );
 };

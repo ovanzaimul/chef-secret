@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { fetchRecipes } from '../actions';
+import { connect } from 'react-redux';
 
 import IconButton from '@mui/material/IconButton';
 import { createSvgIcon, TextField } from '@mui/material';
@@ -12,19 +14,29 @@ const SearchIcon = createSvgIcon(
   'Search'
 );
 
-const SearchBar = () => {
+const SearchBar = ({ fetchRecipes }) => {
+  const [query, setQuery] = useState('');
+
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    fetchRecipes(query);
+  };
+
   return (
     <Box
       noValidate
       autoComplete='off'
       component='form'
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '60%', color: 'primary.main' }}
+      onSubmit={onFormSubmit}
     >
       <TextField
         variant='standard'
         sx={{ ml: 1, flex: 1 }}
         placeholder='Search over 1,000,000 recipes...'
         inputProps={{ 'aria-label': 'search recipe' }}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
       />
       <IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
         <SearchIcon />
@@ -33,4 +45,8 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+const mapStateToProps = (state) => {
+  return { recipes: state.recipes };
+};
+
+export default connect(mapStateToProps, { fetchRecipes })(SearchBar);
