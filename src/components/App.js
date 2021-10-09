@@ -32,7 +32,6 @@ const style = {
     backgroundColor: '#ff5722',
     marginBottom: '10px',
   },
-  // customGrid: { display: 'grid', gridTemplateRows: 'minmax(80vh, auto)', gridTemplateColumns: 'auto auto' },
   customGrid: { height: '95vh', maxHeight: '1200px' },
 };
 
@@ -43,8 +42,6 @@ const ItemContainer = styled(Paper)(({ theme }) => ({
   color: theme.palette.secondary.main,
   backgroundColor: theme.palette.primary.main,
   minHeight: '100%',
-  // height: '95vh',
-  // minHeight: { lg: '1170px', md: '900px' },
   maxHeight: '1200px',
   overflowY: 'scroll',
 }));
