@@ -107,9 +107,8 @@ const RecipePage = ({ match, fetchRecipe, selectedRecipe }) => {
               sx={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
-                gap: '2.5rem 3rem',
-                justifyContent: 'center',
-                mx: 'auto',
+                gap: '1rem 1.5rem',
+                px: 3,
               }}
             >
               {renderIngredients()}
