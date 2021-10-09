@@ -17,13 +17,13 @@ import RecipePage from '../pages/RecipePage';
 
 const theme = createTheme({
   palette: {
-    primary: { main: deepOrange[500], light: deepOrange[300], dark: deepOrange[900] },
+    primary: { main: deepOrange[500], light: deepOrange[300], dark: deepOrange[900], lightest: deepOrange[50] },
     secondary: { main: brown[500], light: brown[300], dark: brown[900] },
   },
 });
 
 const style = {
-  container: { p: { lg: 6, md: 4, sm: 0 } },
+  container: { p: { lg: 6, md: 4, sm: 0 }, backgroundColor: '#fbe9e7' },
   logo: { display: 'flex', alignItems: 'center' },
   nav: {
     display: 'flex',
@@ -40,8 +40,9 @@ const ItemContainer = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.secondary.main,
   backgroundColor: theme.palette.primary.main,
-  height: '90vh',
-  maxHeight: '90vh',
+  height: '95vh',
+  minHeight: { lg: '1170px', md: '900px' },
+  maxHeight: '1200px',
   overflowY: 'scroll',
 }));
 
@@ -50,7 +51,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <Box sx={style.container}>
-          <Box component='nav' sx={style.nav}>
+          <Paper component='nav' sx={style.nav}>
             <Box sx={style.logo} color='secondary.main'>
               <LogoApp />
               <Typography color='secondary.main' style={{ marginLeft: '-18px', fontWeight: 'bold' }}>
@@ -59,10 +60,10 @@ const App = () => {
             </Box>
             <SearchBar />
             <Bookmark />
-          </Box>
+          </Paper>
 
           {/* <Offset /> */}
-          <Grid spacing={2} sx={{ backgroundColor: '#f9f9f9' }} container>
+          <Grid spacing={2} container>
             <Grid xs={4} item>
               <ItemContainer>
                 <Route path='/' component={RecipesPage} />
