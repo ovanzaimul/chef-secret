@@ -23,7 +23,7 @@ const theme = createTheme({
 });
 
 const style = {
-  container: { p: { lg: 6, md: 4, sm: 0 }, backgroundColor: '#fbe9e7' },
+  container: { p: { lg: 6, md: 4, sm: 0 }, backgroundColor: '#fbe9e7', height: '100%', overflowY: 'auto' },
   logo: { display: 'flex', alignItems: 'center' },
   nav: {
     display: 'flex',
@@ -32,6 +32,8 @@ const style = {
     backgroundColor: '#ff5722',
     marginBottom: '10px',
   },
+  // customGrid: { display: 'grid', gridTemplateRows: 'minmax(80vh, auto)', gridTemplateColumns: 'auto auto' },
+  customGrid: { height: '95vh', maxHeight: '1200px' },
 };
 
 const ItemContainer = styled(Paper)(({ theme }) => ({
@@ -40,8 +42,9 @@ const ItemContainer = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.secondary.main,
   backgroundColor: theme.palette.primary.main,
-  height: '95vh',
-  minHeight: { lg: '1170px', md: '900px' },
+  minHeight: '100%',
+  // height: '95vh',
+  // minHeight: { lg: '1170px', md: '900px' },
   maxHeight: '1200px',
   overflowY: 'scroll',
 }));
@@ -63,7 +66,7 @@ const App = () => {
           </Paper>
 
           {/* <Offset /> */}
-          <Grid spacing={2} container>
+          <Grid sx={style.customGrid} spacing={2} container>
             <Grid xs={4} item>
               <ItemContainer>
                 <Route path='/' component={RecipesPage} />
