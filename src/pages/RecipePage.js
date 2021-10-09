@@ -63,7 +63,7 @@ const RecipePage = ({ match, fetchRecipe, selectedRecipe }) => {
             mb={2}
           >
             <CheckIcon color='primary' fontSize='large' />
-            <Typography color='secondary.main'>{`${ing.quantity} ${ing.description} ${ing.unit} `} </Typography>
+            <Typography color='secondary.main'>{`${ing.quantity} ${ing.unit} ${ing.description} `} </Typography>
           </Typography>
         );
       });
