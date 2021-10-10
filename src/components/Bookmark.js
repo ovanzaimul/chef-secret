@@ -16,17 +16,25 @@ const Bookmark = ({ bookmarks }) => {
   const [open, setOpen] = useState(false);
 
   const renderBookmarkLists = () => {
-    return bookmarks.map((bookmark) => (
-      <Link key={bookmark.id} to={`/${bookmark.id}`}>
-        <Card sx={{ bgcolor: 'primary.light', marginTop: '5px' }}>
-          <CardHeader
-            avatar={<Avatar src={bookmark.image_url} />}
-            title={bookmark.title}
-            subheader={bookmark.publisher}
-          />
+    if (bookmarks && bookmarks.length > 0) {
+      return bookmarks.map((bookmark) => (
+        <Link key={bookmark.id} to={`/${bookmark.id}`}>
+          <Card sx={{ bgcolor: 'primary.light', marginTop: '5px' }}>
+            <CardHeader
+              avatar={<Avatar src={bookmark.image_url} />}
+              title={bookmark.title}
+              subheader={bookmark.publisher}
+            />
+          </Card>
+        </Link>
+      ));
+    } else {
+      return (
+        <Card sx={{ bgcolor: 'primary.light', p: 1 }}>
+          <CardHeader title='No bookmarks yet.' subheader='Find your favorite recipes and bookmark it :)' />
         </Card>
-      </Link>
-    ));
+      );
+    }
   };
 
   return (
