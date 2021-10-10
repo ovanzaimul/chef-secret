@@ -2,7 +2,7 @@ import { Button, Card, CardContent, CardMedia, createSvgIcon, IconButton, Typogr
 import { Box } from '@mui/system';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchRecipe } from '../actions';
+import { fetchRecipe, addBookmark, deleteBookmark } from '../actions';
 
 const WarningIcon = createSvgIcon(
   <path
@@ -50,14 +50,31 @@ const AddBookmarkIcon = createSvgIcon(
   'Bookmark'
 );
 
-const RecipePage = ({ match, fetchRecipe, selectedRecipe }) => {
+const DeleteBookmarkIcon = createSvgIcon(
+  <path
+    d='M21 7h-6V5h6v2zm-2 3.9c-.32.07-.66.1-1 .1-2.76 0-5-2.24-5-5 0-1.13.37-2.16 1-3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V10.9z
+'
+  />,
+  'Bookmark'
+);
+
+const RecipePage = ({ match, fetchRecipe, selectedRecipe, addBookmark, deleteBookmark, bookmarks }) => {
   let recipeId = match.params.id;
-  console.log('from recipePage😎:', selectedRecipe);
-  console.log('INGREDIENTS:', selectedRecipe?.ingredients);
 
   useEffect(() => {
     fetchRecipe(recipeId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipeId]);
+
+  const handleBookmark = (recipe) => {
+    if (recipe) {
+      if (bookmarks.some((bookmark) => bookmark.id === recipe.id)) {
+        deleteBookmark(recipe);
+      } else {
+        addBookmark(recipe);
+      }
+    }
+  };
 
   const renderIngredients = () => {
     if (selectedRecipe) {
@@ -79,8 +96,17 @@ const RecipePage = ({ match, fetchRecipe, selectedRecipe }) => {
     return null;
   };
 
+  // const renderLoader = () => {
+  //   return (
+  //     <Typography>
+  //       Please wait....
+  //       <br />
+  //       Your Recipe is loading
+  //     </Typography>
+  //   );
+  // };
+
   const renderRecipe = () => {
-    console.log('😍😎😋', selectedRecipe);
     if (selectedRecipe) {
       return (
         <Card sx={{ bgcolor: 'primary.light' }}>
@@ -90,8 +116,13 @@ const RecipePage = ({ match, fetchRecipe, selectedRecipe }) => {
             image={selectedRecipe.image_url}
             alt='Paella dish'
           />
+          <CardContent>
+            <Typography variant='h5' color='secondary.main'>
+              {selectedRecipe.title.toUpperCase()}
+            </Typography>
+          </CardContent>
           <CardContent
-            sx={{ p: 3, marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}
+            sx={{ p: 2, marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}
           >
             <Box gutterBottom sx={{ color: 'secondary.dark', display: 'flex', alignItems: 'center' }}>
               <ClockIcon color='primary' fontSize='large' />
@@ -102,8 +133,12 @@ const RecipePage = ({ match, fetchRecipe, selectedRecipe }) => {
               <PersonIcon color='primary' fontSize='large' />
               <Typography color='secondary.main'>{selectedRecipe.servings} SERVINGS</Typography>
             </Box>
-            <IconButton size='large'>
-              <AddBookmarkIcon color='primary' fontSize='large' />
+            <IconButton onClick={() => handleBookmark(selectedRecipe)} size='large'>
+              {bookmarks.some((bookmark) => bookmark.id === selectedRecipe.id) ? (
+                <DeleteBookmarkIcon color='primary' fontSize='large' />
+              ) : (
+                <AddBookmarkIcon color='primary' fontSize='large' />
+              )}
             </IconButton>
           </CardContent>
 
@@ -145,21 +180,22 @@ const RecipePage = ({ match, fetchRecipe, selectedRecipe }) => {
           </CardContent>
         </Card>
       );
+    } else {
+      return (
+        <Typography>
+          <WarningIcon />
+          <br />
+          We could not find that recipe. Please try another one!
+        </Typography>
+      );
     }
-    return (
-      <Typography>
-        <WarningIcon />
-        <br />
-        We could not find that recipe. Please try another one!
-      </Typography>
-    );
   };
 
   return <div>{renderRecipe()}</div>;
 };
 
 const mapStateToProps = (state) => {
-  return { selectedRecipe: state.recipe };
+  return { selectedRecipe: state.recipe, bookmarks: state.bookmarks };
 };
 
-export default connect(mapStateToProps, { fetchRecipe })(RecipePage);
+export default connect(mapStateToProps, { fetchRecipe, addBookmark, deleteBookmark })(RecipePage);

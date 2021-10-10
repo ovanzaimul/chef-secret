@@ -1,6 +1,8 @@
-import { Badge, createSvgIcon, IconButton, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Avatar, Badge, Card, CardHeader, createSvgIcon, IconButton, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const BookmarkIcon = createSvgIcon(
   <path
@@ -10,19 +12,61 @@ const BookmarkIcon = createSvgIcon(
   'Bookmark'
 );
 
-const Bookmark = () => {
+const Bookmark = ({ bookmarks }) => {
+  const [open, setOpen] = useState(false);
+
+  const renderBookmarkLists = () => {
+    return bookmarks.map((bookmark) => (
+      <Link key={bookmark.id} to={`/${bookmark.id}`}>
+        <Card sx={{ bgcolor: 'primary.light', marginTop: '5px' }}>
+          <CardHeader
+            avatar={<Avatar src={bookmark.image_url} />}
+            title={bookmark.title}
+            subheader={bookmark.publisher}
+          />
+        </Card>
+      </Link>
+    ));
+  };
+
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', fontWeight: '700' }}>
-      <IconButton size='large' aria-label='show 4 new mails'>
-        <Badge badgeContent={4} color='error'>
+    <Box sx={{ display: 'flex', alignItems: 'center', fontWeight: '700', position: 'relative' }}>
+      <IconButton
+        onClick={() => {
+          setOpen(!open);
+        }}
+        size='large'
+        aria-label='show 4 new mails'
+      >
+        <Badge badgeContent={bookmarks?.length} color='error'>
           <BookmarkIcon color='primary.light' />
         </Badge>
         <Typography color='secondary.main' sx={{ fontWeight: 500, marginLeft: '8px' }}>
           Bookmarks
         </Typography>
       </IconButton>
+      <Paper
+        sx={{
+          position: 'absolute',
+          top: '100%',
+          left: '-70%',
+          zIndex: '10',
+          maxHeight: '500px',
+          width: '250px',
+          // maxWidth: '500px',
+          overFlowY: 'auto',
+          // bgcolor: '#ff5722',
+          bgcolor: 'transparent',
+        }}
+      >
+        {open && renderBookmarkLists()}
+      </Paper>
     </Box>
   );
 };
 
-export default Bookmark;
+const mapStateToProps = (state) => {
+  return { bookmarks: state.bookmarks };
+};
+
+export default connect(mapStateToProps)(Bookmark);

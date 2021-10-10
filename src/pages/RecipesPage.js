@@ -40,7 +40,6 @@ const RecipesPage = ({ recipes }) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log('from recipes page', state);
   return { recipes: state.recipes };
 };
 

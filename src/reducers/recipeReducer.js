@@ -1,4 +1,4 @@
-export default (state = null, action) => {
+const recipeReducer = (state = null, action) => {
   switch (action.type) {
     case 'FETCH_RECIPE':
       return action.payload;
@@ -7,3 +7,5 @@ export default (state = null, action) => {
       return state;
   }
 };
+
+export default recipeReducer;
