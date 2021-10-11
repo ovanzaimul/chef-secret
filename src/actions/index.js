@@ -12,7 +12,6 @@ export const fetchRecipe = (id) => async (dispatch, _) => {
 };
 
 export const addBookmark = (bookmark) => async (dispatch, _) => {
-  console.log('from action', bookmark);
   dispatch({ type: 'ADD_BOOKMARK', payload: bookmark });
 };
 
