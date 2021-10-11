@@ -66,12 +66,12 @@ const App = () => {
 
           {/* <Offset /> */}
           <Grid sx={style.customGrid} spacing={2} container>
-            <Grid xs={4} md={3} xs={12} item>
+            <Grid sm={4} md={3} xs={12} item>
               <ItemContainer>
                 <Route path='/' component={RecipesPage} />
               </ItemContainer>
             </Grid>
-            <Grid xs={8} md={9} xs={12} item>
+            <Grid sm={8} md={9} xs={12} item>
               <ItemContainer>
                 <Route path='/:id' component={RecipePage} />
               </ItemContainer>
