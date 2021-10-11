@@ -33,7 +33,7 @@ const SearchBar = ({ fetchRecipes }) => {
       <TextField
         variant='standard'
         sx={{ ml: 1, flex: 1 }}
-        placeholder='Search over 1,000,000 recipes...'
+        placeholder='Search recipes... e.g. Rendang'
         inputProps={{ 'aria-label': 'search recipe' }}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
