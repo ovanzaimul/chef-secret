@@ -1,4 +1,13 @@
-import { Button, Card, CardContent, CardMedia, createSvgIcon, IconButton, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+  createSvgIcon,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -181,13 +190,7 @@ const RecipePage = ({ match, fetchRecipe, selectedRecipe, addBookmark, deleteBoo
         </Card>
       );
     } else {
-      return (
-        <Typography>
-          <WarningIcon />
-          <br />
-          We could not find that recipe. Please try another one!
-        </Typography>
-      );
+      return <CircularProgress color='secondary' />;
     }
   };
 
@@ -199,3 +202,9 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { fetchRecipe, addBookmark, deleteBookmark })(RecipePage);
+
+// <Typography>
+//   <WarningIcon />
+//   <br />
+//   We could not find that recipe. Please try another one!
+// </Typography>
