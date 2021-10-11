@@ -27,7 +27,9 @@ const style = {
   logo: { display: 'flex', alignItems: 'center' },
   nav: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: { sm: 'row', xs: 'column' },
+    justifyContent: { sm: 'space-between', xs: 'center' },
+    alignItems: { sm: 'space-between', xs: 'center' },
     p: 2,
     backgroundColor: '#ff5722',
     marginBottom: '10px',
@@ -64,12 +66,12 @@ const App = () => {
 
           {/* <Offset /> */}
           <Grid sx={style.customGrid} spacing={2} container>
-            <Grid xs={4} item>
+            <Grid xs={4} md={3} xs={12} item>
               <ItemContainer>
                 <Route path='/' component={RecipesPage} />
               </ItemContainer>
             </Grid>
-            <Grid xs={8} item>
+            <Grid xs={8} md={9} xs={12} item>
               <ItemContainer>
                 <Route path='/:id' component={RecipePage} />
               </ItemContainer>
