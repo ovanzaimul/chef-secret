@@ -30,8 +30,19 @@ const Bookmark = ({ bookmarks }) => {
       ));
     } else {
       return (
-        <Card sx={{ bgcolor: 'primary.light', p: 1 }}>
-          <CardHeader title='No bookmarks yet.' subheader='Find your favorite recipes and bookmark it :)' />
+        <Card sx={{ bgcolor: 'primary.light' }}>
+          <CardHeader
+            title={
+              <Typography variant='h6' color='secondary.main'>
+                No bookmarks yet.
+              </Typography>
+            }
+            subheader={
+              <Typography color='secondary.main' variant='body2'>
+                Find your favorite recipes and bookmark it :)
+              </Typography>
+            }
+          />
         </Card>
       );
     }
